@@ -54,11 +54,11 @@ def remove_chastisements(schoolkid):
     return all_chastisements.delete()        
 
 
-def create_commendation(schoolkid, lesson):
+def create_commendation(schoolkid, subject):
     lesson_in_schedule = Lesson.objects.filter(
         year_of_study=schoolkid.year_of_study, 
         group_letter=schoolkid.group_letter,
-        subject__title__contains=lesson
+        subject__title__contains=subject
     ).order_by('date').first()
     add_new_commendation = Commendation.objects.create(
         schoolkid=schoolkid,
@@ -86,7 +86,7 @@ if __name__ == '__main__':
         exit()
 
     try:
-        lesson = Subject.objects.get(
+        subject = Subject.objects.get(
             title=args.subject, 
             year_of_study=schoolkid.year_of_study
         )
@@ -97,4 +97,4 @@ if __name__ == '__main__':
 
     fix_marks(schoolkid)
     remove_chastisements(schoolkid)
-    create_commendation(schoolkid, lesson.title)
+    create_commendation(schoolkid, subject.title)
