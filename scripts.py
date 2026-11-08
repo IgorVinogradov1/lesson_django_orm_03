@@ -59,7 +59,7 @@ def create_commendation(schoolkid, subject):
         year_of_study=schoolkid.year_of_study, 
         group_letter=schoolkid.group_letter,
         subject__title__contains=subject
-    ).order_by('date').first()
+    ).order_by('-date').first()
     add_new_commendation = Commendation.objects.create(
         schoolkid=schoolkid,
         subject=lesson_in_schedule.subject,
